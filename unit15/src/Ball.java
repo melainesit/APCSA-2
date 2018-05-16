@@ -101,7 +101,7 @@ public class Ball extends Block implements Collidable
 
 	public boolean didCollideBottom(Object obj) {
 		Wall other = (Wall) obj;
-		return this.gety()+9 /*because the bottom wall is screwed up*/ >= other.getBottom();
+		return this.gety()+9  >= other.getBottom();
 	}
 	
 	public String toString() {

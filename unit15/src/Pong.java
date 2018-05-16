@@ -39,7 +39,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 	private Ball ball;
 	
 	private Paddle leftPaddle;
-	private Paddle rightPaddle;
+	//private Paddle rightPaddle;
 	private Wall wall;
 	
 	private int timer = 0;
@@ -47,7 +47,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 	private boolean[] keys;
 	private BufferedImage back;
 	private int leftScore;
-	private int rightScore;	
+	//private int rightScore;	
 
 	//starting position of ball
 	private static final int BALL_Xi = 380;
@@ -59,14 +59,16 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		
 		//set up variables
 		leftPaddle = new Paddle(10, 244, 10, 70, Color.YELLOW, 4);
-		rightPaddle = new Paddle(760, 244, 10, 70, Color.YELLOW, 4);
+		//rightPaddle = new Paddle(760, 244, 10, 70, Color.YELLOW, 4);
 		wall = new Wall(0, 770, 10, 550);
 		keys = new boolean[4];
 		leftScore = 0;
-		rightScore = 0;
+		//rightScore = 0;
 		
     	setBackground(Color.WHITE);
 		setVisible(true);
+		
+		blocks();
 		
 		new Thread(this).start();
 		addKeyListener(this);		//starts the key thread to log key strokes
@@ -105,7 +107,11 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		//draw objects
 		ball.moveAndDraw(graphToBack);
 		leftPaddle.draw(graphToBack);
-		rightPaddle.draw(graphToBack);
+		//rightPaddle.draw(graphToBack);
+		
+		for(int i = 0; i < blocks.size(); i++){
+			blocks.get(i).draw(graphToBack);
+		}
 		
 		//draw lower wall
 		graphToBack.setColor(Color.BLACK);
@@ -120,7 +126,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				"Player 2 Score: "+ rightScore, 120, 590);
 			
 		//IF BALL COLLIDE LEFT WALL
-		if(ball.didCollideLeft(wall)) {
+		/*if(ball.didCollideLeft(wall)) {
 			rightScore++;
 			
 			//RESET BALL 
@@ -164,7 +170,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 			leftPaddle.draw(graphToBack, Color.WHITE);
 			leftPaddle.setColor(Color.WHITE);
 			rightPaddle.draw(graphToBack, Color.WHITE);
-			rightPaddle.setColor(Color.WHITE);
+			rightPaddle.setColor(Color.WHITE); 
 			
 			//CREATE NEW BALLS AND PADDLES FOR NEXT ROUND
 			createBall();
@@ -178,12 +184,16 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				System.exit(0);
 			}
 		}
-			
+			*/
+		
 		//IF BALL COLLIDE WITH TOP AND BOTTOM WALLS
 		if(ball.didCollideTop(wall) || ball.didCollideBottom(wall)) {
 			ball.setYSpeed(-ball.getYSpeed());
 			if(play == 'a') subIncSpeed();
 		}
+		if(ball.didCollideRight(wall) || ball.didCollideLeft(wall)) {
+			ball.setXSpeed(-ball.getXSpeed());
+			
 
 		//IF BALL COLLIDE LEFT PADDLE
 		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth()
@@ -237,6 +247,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		
 		twoDGraph.drawImage(back, null, 0, 0);
    	}
+   }
   	
 	public void keyPressed(KeyEvent e)
 	{
