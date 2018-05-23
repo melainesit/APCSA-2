@@ -202,13 +202,12 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		}
 		if(ball.didCollideRight(wall) || ball.didCollideLeft(wall)) {
 			ball.setXSpeed(-ball.getXSpeed());
-		}	
+			
 
 		//IF BALL COLLIDE LEFT 
-		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth() - ball.getXSpeed()
-			&& (ball.getx() >= leftPaddle.getx() + leftPaddle.getWidth() + ball.getXSpeed() - 5)
-			&& (ball.gety() + ball.getHeight() >= leftPaddle.gety() )
-			&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()) && (ball.getXSpeed() < 0))
+		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth()
+			&& (ball.gety() + ball.getHeight() >= leftPaddle.gety())
+			&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()))
 		{
 			ball.setXSpeed(-ball.getXSpeed());
 		}
@@ -218,7 +217,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + ball.getXSpeed() + leftPaddle.getSpeed())
 					&& (ball.gety() + ball.getHeight() >= leftPaddle.getx())
 					&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()) && (ball.getXSpeed() > 0)) {
-
+				// no idea what this is
 				ball.setXSpeed(-ball.getXSpeed());
 
 				// if(play == 'a') subIncSpeed();
@@ -227,7 +226,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 					&& (ball.gety() >= leftPaddle.gety() + ball.getXSpeed()) && (ball.getx() >= leftPaddle.getx())
 					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + leftPaddle.getHeight())
 					&& (ball.getYSpeed() < 0)) {
-
+				// no idea what this is
 				ball.setYSpeed(-ball.getYSpeed());
 
 				// if(play == 'a') subIncSpeed();
@@ -240,13 +239,15 @@ public class Pong extends Canvas implements KeyListener, Runnable
 					&& (ball.getx() >= leftPaddle.getx())
 					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + leftPaddle.getHeight())
 					&& (ball.getYSpeed() > 0)) {
-
+				// no idea what this is
 				ball.setYSpeed(-ball.getYSpeed());
 
 				// if(play == 'a') subIncSpeed();
 			}
 		//MOVEMENT FOR PADDLES
 		
+		
+   	}
    
    	for (int i = 0; i < blocks.size(); i++) {
 		if (ball.getx() <= blocks.get(i).getx() + blocks.get(i).getWidth() - ball.getXSpeed()

@@ -202,23 +202,23 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		}
 		if(ball.didCollideRight(wall) || ball.didCollideLeft(wall)) {
 			ball.setXSpeed(-ball.getXSpeed());
-		}	
+			
 
-		//IF BALL COLLIDE LEFT 
-		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth() - ball.getXSpeed()
+		//IF BALL COLLIDE LEFT PADDLE
+		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth()-ball.getXSpeed()
 			&& (ball.getx() >= leftPaddle.getx() + leftPaddle.getWidth() + ball.getXSpeed() - 5)
-			&& (ball.gety() + ball.getHeight() >= leftPaddle.gety() )
+			&& (ball.gety() + ball.getHeight() >= leftPaddle.gety())
 			&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()) && (ball.getXSpeed() < 0))
 		{
 			ball.setXSpeed(-ball.getXSpeed());
 		}
 			
-		//IF BALL COLLIDE RIGHT 
+		//IF BALL COLLIDE RIGHT PADDLE
 			if (ball.getx() + ball.getWidth() >= leftPaddle.getx() - leftPaddle.getSpeed() - ball.getXSpeed()
 					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + ball.getXSpeed() + leftPaddle.getSpeed())
 					&& (ball.gety() + ball.getHeight() >= leftPaddle.getx())
 					&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()) && (ball.getXSpeed() > 0)) {
-
+				// no idea what this is
 				ball.setXSpeed(-ball.getXSpeed());
 
 				// if(play == 'a') subIncSpeed();
@@ -227,7 +227,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 					&& (ball.gety() >= leftPaddle.gety() + ball.getXSpeed()) && (ball.getx() >= leftPaddle.getx())
 					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + leftPaddle.getHeight())
 					&& (ball.getYSpeed() < 0)) {
-
+				// no idea what this is
 				ball.setYSpeed(-ball.getYSpeed());
 
 				// if(play == 'a') subIncSpeed();
@@ -240,13 +240,31 @@ public class Pong extends Canvas implements KeyListener, Runnable
 					&& (ball.getx() >= leftPaddle.getx())
 					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + leftPaddle.getHeight())
 					&& (ball.getYSpeed() > 0)) {
-
+				// no idea what this is
 				ball.setYSpeed(-ball.getYSpeed());
 
 				// if(play == 'a') subIncSpeed();
 			}
 		//MOVEMENT FOR PADDLES
 		
+		if(keys[0] == true) {//left player
+			leftPaddle.moveUpAndDraw(graphToBack);
+		}
+		if(keys[1] == true) {//left player
+			leftPaddle.moveDownAndDraw(graphToBack);
+		}
+			
+		if(keys[2] == true) {//right player
+			leftPaddle.moveLeftAndDraw(graphToBack);
+		}
+		if(keys[3] == true) {//right player
+			leftPaddle.moveRightAndDraw(graphToBack);
+		}
+		
+		System.out.println(ball.getXSpeed() +" "+ ball.getYSpeed());
+		
+		twoDGraph.drawImage(back, null, 0, 0);
+   	}
    
    	for (int i = 0; i < blocks.size(); i++) {
 		if (ball.getx() <= blocks.get(i).getx() + blocks.get(i).getWidth() - ball.getXSpeed()
@@ -268,7 +286,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				&& (ball.getx() + ball.getWidth() <= blocks.get(i).getx() + ball.getXSpeed())
 				&& (ball.gety() + ball.getHeight() >= blocks.get(i).gety())
 				&& (ball.gety() <= blocks.get(i).gety() + blocks.get(i).getHeight()) && (ball.getXSpeed() > 0)) {
-
+			// no idea what this is
 			ball.setXSpeed(-ball.getXSpeed());
 			blocks.get(i).setColor(Color.WHITE);
 			blocks.get(i).draw(graphToBack);
@@ -284,7 +302,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				&& (ball.gety() >= blocks.get(i).gety() + ball.getXSpeed()) && (ball.getx() >= blocks.get(i).getx())
 				&& (ball.getx() + ball.getWidth() <= blocks.get(i).getx() + blocks.get(i).getHeight())
 				&& (ball.getYSpeed() < 0)) {
-			
+			// no idea what this is
 			ball.setXSpeed(-ball.getXSpeed());
 			blocks.get(i).setColor(Color.WHITE);
 			blocks.get(i).draw(graphToBack);
@@ -301,7 +319,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				&& (ball.getx() >= blocks.get(i).getx())
 				&& (ball.getx() + ball.getWidth() <= blocks.get(i).getx() + blocks.get(i).getHeight())
 				&& (ball.getYSpeed() > 0)) {
-	
+			// no idea what this is
 			ball.setXSpeed(-ball.getXSpeed());
 			blocks.get(i).setColor(Color.WHITE);
 			blocks.get(i).draw(graphToBack);
@@ -311,31 +329,10 @@ public class Pong extends Canvas implements KeyListener, Runnable
 			// if(play == 'a') subIncSpeed();
 		}
 	}
-	
-		if (score == 56){
-			blocks2();
-			score++;
-		}
-	
-		if(keys[0] == true) {//left player
-			leftPaddle.moveUpAndDraw(graphToBack);
-		}
-		if(keys[1] == true) {//left player
-			leftPaddle.moveDownAndDraw(graphToBack);
-		}
-		
-		if(keys[2] == true) {//right player
-			leftPaddle.moveLeftAndDraw(graphToBack);
-		}
-		if(keys[3] == true) {//right player
-			leftPaddle.moveRightAndDraw(graphToBack);
-		}
-	
-		System.out.println(ball.getXSpeed() +" "+ ball.getYSpeed());
-		
-		twoDGraph.drawImage(back, null, 0, 0);
-	
-	
+	if (score == 56){
+		blocks2();
+		score++;
+	}
    	}
 	public void keyPressed(KeyEvent e)
 	{

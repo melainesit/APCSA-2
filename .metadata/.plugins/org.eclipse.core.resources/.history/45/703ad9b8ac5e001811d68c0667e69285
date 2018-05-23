@@ -14,7 +14,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import java.awt.Font;
 
 
@@ -202,149 +201,71 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		}
 		if(ball.didCollideRight(wall) || ball.didCollideLeft(wall)) {
 			ball.setXSpeed(-ball.getXSpeed());
-		}	
+			
 
-		//IF BALL COLLIDE LEFT 
-		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth() - ball.getXSpeed()
+		//IF BALL COLLIDE LEFT PADDLE
+		if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth()-ball.getXSpeed()
 			&& (ball.getx() >= leftPaddle.getx() + leftPaddle.getWidth() + ball.getXSpeed() - 5)
-			&& (ball.gety() + ball.getHeight() >= leftPaddle.gety() )
+			&& (ball.gety() + ball.getHeight() >= leftPaddle.gety())
 			&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()) && (ball.getXSpeed() < 0))
 		{
 			ball.setXSpeed(-ball.getXSpeed());
+			
+			//out of bounds
+			if(ball.getx() <= leftPaddle.getx()+leftPaddle.getWidth()-Math.abs(ball.getXSpeed()))
+				ball.setYSpeed(-ball.getYSpeed());
+			//make ball bounce
+			else
+				ball.setXSpeed(-ball.getXSpeed());
+			if(play == 'a') subIncSpeed();
 		}
 			
-		//IF BALL COLLIDE RIGHT 
-			if (ball.getx() + ball.getWidth() >= leftPaddle.getx() - leftPaddle.getSpeed() - ball.getXSpeed()
-					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + ball.getXSpeed() + leftPaddle.getSpeed())
-					&& (ball.gety() + ball.getHeight() >= leftPaddle.getx())
-					&& (ball.gety() <= leftPaddle.gety() + leftPaddle.getHeight()) && (ball.getXSpeed() > 0)) {
-
+		//IF BALL COLLIDE RIGHT PADDLE
+		if(ball.getx() >= rightPaddle.getx()-rightPaddle.getWidth()
+				&& ball.gety() >= rightPaddle.gety()
+				&& (ball.gety() <= rightPaddle.gety()+rightPaddle.getHeight()
+				|| ball.gety()+ball.getHeight() >= rightPaddle.gety()
+				&& ball.gety()+ball.getHeight() < rightPaddle.gety()+rightPaddle.getHeight()))
+		{
+			//out of bounds
+			if(ball.getx() >= rightPaddle.getx()-rightPaddle.getWidth()+Math.abs(ball.getXSpeed()))
+				ball.setYSpeed(-ball.getYSpeed());
+			//make ball bounce
+			else
 				ball.setXSpeed(-ball.getXSpeed());
-
-				// if(play == 'a') subIncSpeed();
-			}
-			if (ball.gety() <= leftPaddle.gety() + leftPaddle.getWidth() - ball.getYSpeed()
-					&& (ball.gety() >= leftPaddle.gety() + ball.getXSpeed()) && (ball.getx() >= leftPaddle.getx())
-					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + leftPaddle.getHeight())
-					&& (ball.getYSpeed() < 0)) {
-
-				ball.setYSpeed(-ball.getYSpeed());
-
-				// if(play == 'a') subIncSpeed();
-			}
-
-			// if ball collides bottom
-
-			if (ball.gety() + ball.getWidth() >= leftPaddle.gety() - ball.getYSpeed() - leftPaddle.getSpeed()
-					&& (ball.gety() + ball.getWidth() <= leftPaddle.gety() + ball.getYSpeed() + leftPaddle.getSpeed())
-					&& (ball.getx() >= leftPaddle.getx())
-					&& (ball.getx() + ball.getWidth() <= leftPaddle.getx() + leftPaddle.getHeight())
-					&& (ball.getYSpeed() > 0)) {
-
-				ball.setYSpeed(-ball.getYSpeed());
-
-				// if(play == 'a') subIncSpeed();
-			}
+			if(play == 'a') subIncSpeed();
+		}
+			
 		//MOVEMENT FOR PADDLES
 		
-   
-   	for (int i = 0; i < blocks.size(); i++) {
-		if (ball.getx() <= blocks.get(i).getx() + blocks.get(i).getWidth() - ball.getXSpeed()
-				&& (ball.getx() >= blocks.get(i).getx() + blocks.get(i).getWidth() + ball.getXSpeed() - 5)
-				&& (ball.gety() + ball.getHeight() >= blocks.get(i).gety())
-				&& (ball.gety() <= blocks.get(i).gety() + blocks.get(i).getHeight()) && (ball.getXSpeed() < 0)) {
-			// no idea what this is
-			ball.setXSpeed(-ball.getXSpeed());
-			blocks.get(i).setColor(Color.WHITE);
-			blocks.get(i).draw(graphToBack);
-			blocks.remove(i);
-			score++;
-
-			// if(play == 'a') subIncSpeed();
-		}
-
-		// if ball collide right
-		if (ball.getx() + ball.getWidth() >= blocks.get(i).getx() - ball.getXSpeed()
-				&& (ball.getx() + ball.getWidth() <= blocks.get(i).getx() + ball.getXSpeed())
-				&& (ball.gety() + ball.getHeight() >= blocks.get(i).gety())
-				&& (ball.gety() <= blocks.get(i).gety() + blocks.get(i).getHeight()) && (ball.getXSpeed() > 0)) {
-
-			ball.setXSpeed(-ball.getXSpeed());
-			blocks.get(i).setColor(Color.WHITE);
-			blocks.get(i).draw(graphToBack);
-			blocks.remove(i);
-			score++;
-
-			// if(play == 'a') subIncSpeed();
-		}
-
-		// if ball collides top
-
-		if (ball.gety() <= blocks.get(i).gety() + blocks.get(i).getWidth() - ball.getYSpeed()
-				&& (ball.gety() >= blocks.get(i).gety() + ball.getXSpeed()) && (ball.getx() >= blocks.get(i).getx())
-				&& (ball.getx() + ball.getWidth() <= blocks.get(i).getx() + blocks.get(i).getHeight())
-				&& (ball.getYSpeed() < 0)) {
-			
-			ball.setXSpeed(-ball.getXSpeed());
-			blocks.get(i).setColor(Color.WHITE);
-			blocks.get(i).draw(graphToBack);
-			blocks.remove(i);
-			score++;
-
-			// if(play == 'a') subIncSpeed();
-		}
-
-		// if ball collides bottom
-
-		if (ball.gety() + ball.getWidth() >= blocks.get(i).gety() - ball.getYSpeed()
-				&& (ball.gety() + ball.getWidth() <= blocks.get(i).gety() + ball.getYSpeed())
-				&& (ball.getx() >= blocks.get(i).getx())
-				&& (ball.getx() + ball.getWidth() <= blocks.get(i).getx() + blocks.get(i).getHeight())
-				&& (ball.getYSpeed() > 0)) {
-	
-			ball.setXSpeed(-ball.getXSpeed());
-			blocks.get(i).setColor(Color.WHITE);
-			blocks.get(i).draw(graphToBack);
-			blocks.remove(i);
-			score++;
-
-			// if(play == 'a') subIncSpeed();
-		}
-	}
-	
-		if (score == 56){
-			blocks2();
-			score++;
-		}
-	
 		if(keys[0] == true) {//left player
 			leftPaddle.moveUpAndDraw(graphToBack);
 		}
 		if(keys[1] == true) {//left player
 			leftPaddle.moveDownAndDraw(graphToBack);
 		}
-		
+			
 		if(keys[2] == true) {//right player
 			leftPaddle.moveLeftAndDraw(graphToBack);
 		}
 		if(keys[3] == true) {//right player
 			leftPaddle.moveRightAndDraw(graphToBack);
 		}
-	
+		
 		System.out.println(ball.getXSpeed() +" "+ ball.getYSpeed());
 		
 		twoDGraph.drawImage(back, null, 0, 0);
-	
-	
    	}
+   }
+  	
 	public void keyPressed(KeyEvent e)
 	{
 		switch(toUpperCase(e.getKeyChar()))
 		{
 			case 'W' : keys[0]=true; break;
-			case 'S' : keys[1]=true; break;
-			case 'A' : keys[2]=true; break;
-			case 'D' : keys[3]=true; break;
+			case 'Z' : keys[1]=true; break;
+			case 'I' : keys[2]=true; break;
+			case 'M' : keys[3]=true; break;
 		}
 	}
 
@@ -353,9 +274,9 @@ public class Pong extends Canvas implements KeyListener, Runnable
 		switch(toUpperCase(e.getKeyChar()))
 		{
 			case 'W' : keys[0]=false; break;
-			case 'S' : keys[1]=false; break;
-			case 'A' : keys[2]=false; break;
-			case 'D' : keys[3]=false; break;
+			case 'Z' : keys[1]=false; break;
+			case 'I' : keys[2]=false; break;
+			case 'M' : keys[3]=false; break;
 		}
 	}
 
@@ -452,11 +373,11 @@ public class Pong extends Canvas implements KeyListener, Runnable
 			y += 75;
 		}
 	}
-  		/*public void removeBlock(int i){
+  		public void removeBlock(int i){
 			blocks.get(i).setColor(Color.WHITE);
 			blocks.remove(i);
 			for (int j = 0; j < blocks.size(); j++) {
 				blocks.get(j).draw(graphToBack);
 	}
-}*/
+}
 }

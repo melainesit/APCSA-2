@@ -20,7 +20,7 @@ public class Block implements Locatable
 	{
 		setPos(100, 150);
 		setwidth(10);
-		setHeight(10);
+		setheight(10);
 		setColor(Color.BLACK);
 	}
 	
@@ -36,7 +36,7 @@ public class Block implements Locatable
 		setx(x);
 		sety(y);
 		setwidth(width);
-		setHeight(height);
+		setheight(height);
 		color = Color.BLACK;
 		
 		
@@ -46,7 +46,7 @@ public class Block implements Locatable
 		setx(x);
 		sety(y);
 		setwidth(width1);
-		setHeight(height1);
+		setheight(height1);
 		setColor(color);
 		
 		
@@ -68,7 +68,7 @@ public class Block implements Locatable
 	{
 		width=width1;
 	}
-	public void setHeight(int height1)
+	public void setheight(int height1)
 	{
 		height=height1;
 	}
@@ -117,16 +117,17 @@ public class Block implements Locatable
    
 	public boolean equals(Object obj)
 	{	
-		Block other = (Block) obj;
-		return this.getx() == other.getx() && this.gety() == other.gety()
-   				&& this.getWidth() == other.getWidth() 
-   				&& this.getHeight() == other.getHeight();
+		Block a = (Block) obj;
+		if (a.getx() ==this.getx() && a.gety()==this.gety() && a.getWidth()==this.getWidth() && a.getHeight()==this.getHeight() && a.getColor() == this.getColor())
+			return true;
+
+		return false;
 	}   
 
    //add the other get methods
     public String toString()
     {
-    	return "";
+    	return getx() + " "  + gety() + " " + getWidth() + " " + getHeight() + " " + getColor();
     }
 
    //add a toString() method  - x , y , width, height, color

@@ -105,6 +105,6 @@ public class Ball extends Block implements Collidable
 	}
 	
 	public String toString() {
-		return super.toString() +" "+ getXSpeed() +" "+ getYSpeed();
+		return super.toString() ;
 	}
 }
